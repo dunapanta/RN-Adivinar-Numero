@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Button, TouchableWithoutFeedback, Keyboard, Ale
 
 import Card from '../components/Card'
 import Input from '../components/Input'
+import NumberContainer from '../components/NumberContainer'
 import Colors from '../constants/colors'
 
 const StartGameScreen = () => {
@@ -26,10 +27,12 @@ const StartGameScreen = () => {
 
         if(isNaN(chosenNumber)|| chosenNumber <= 0 || chosenNumber > 99){
             Alert.alert('Número Inválido', 'Debes ingresar un número entre 1 y 99', [{text: 'Aceptar', style: 'destructive', onPress: resetInputHandler}])
+            return
         }
         setConfirmed(true)
         setEnteredValue('')
         setSelectedNumber(chosenNumber)
+        Keyboard.dismiss()
     }
 
     return(
@@ -55,7 +58,11 @@ const StartGameScreen = () => {
                         <View style={styles.button}><Button color="#09af00" title="Confirmar" onPress={confirmInputHandler}/></View>
                     </View>
                 </Card>
-                {confirmed && <Text>Número Elegido: {selectedNumber}</Text>}
+                {confirmed && (<Card style={styles.sumaryContainer}>
+                                    <Text>Número Elegido:</Text>
+                                    <NumberContainer number={selectedNumber}/>
+                                    <Button title="INICIAR JUEGO"/>
+                                </Card>)}
             </View>
         </TouchableWithoutFeedback>
     )
@@ -91,6 +98,10 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 27
 
+    },
+    sumaryContainer: {
+        marginTop: 30,
+        alignItems: 'center'
     }
 })
 
