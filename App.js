@@ -9,6 +9,7 @@ import StartGameScreen from './screens/StartGameScreen'
 import GameScreen from './screens/GameScreen'
 import GameOverScreen from './screens/GameOverScreen'
 
+// function to load the fonts i want to use
 const fetchFonts = () => {
   /* loadAsync returns a promise */
   return Font.loadAsync({
@@ -23,11 +24,11 @@ export default function App() {
   const [dataLoaded, setDataLoaded]  = useState( false)
 
   if(!dataLoaded){
-    /* startAsync needs a function that returns a promise  */
+    /* startAsync needs a function that returns a promise, when the promise resolves and execute onFinish  */
     return <AppLoading 
               startAsync={fetchFonts} 
               onFinish={ () => setDataLoaded(true)} 
-              onError={ (ee) => console.log(err)}
+              onError={ (err) => console.log(err)}
             />
   }
 
