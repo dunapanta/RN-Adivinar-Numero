@@ -55,7 +55,7 @@ const GameScreen = ({ userChoice, onGameOver }) => {
 
     return(
         <View style={styles.screen}>
-            <Text style={DefaultStyles.title}>Número del Openente</Text>
+            <Text style={DefaultStyles.title}>Número del Oponente</Text>
             <NumberContainer number={currentGuess}/>
             <Card style={styles.buttonContainer}>
                 <Button title="MENOR" onPress={ () => nextGuessHandler('lower') }/>

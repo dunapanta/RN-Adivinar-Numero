@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, Button, TouchableWithoutFeedback, Keyboard, Ale
 import Card from '../components/Card'
 import Input from '../components/Input'
 import NumberContainer from '../components/NumberContainer'
+import DefaultStyles from '../constants/default-styles'
 import Colors from '../constants/colors'
 
 const StartGameScreen = ({ onStart }) => {
@@ -42,7 +43,7 @@ const StartGameScreen = ({ onStart }) => {
                 <Text style={styles.title}>Comezar a Jugar!</Text>
                 {/* Card Section */}
                 <Card style={styles.inputCointainer}>
-                    <Text>Selecciona un Número</Text>
+                    <Text style={DefaultStyles.bodyText}>Selecciona un Número</Text>
                     <Input 
                         style={styles.input} 
                         keyboardType='number-pad' 
@@ -59,7 +60,7 @@ const StartGameScreen = ({ onStart }) => {
                     </View>
                 </Card>
                 {confirmed && (<Card style={styles.sumaryContainer}>
-                                    <Text>Número Elegido:</Text>
+                                    <Text style={DefaultStyles.bodyText}>Número Elegido:</Text>
                                     <NumberContainer number={selectedNumber}/>
                                     <Button title="INICIAR JUEGO" onPress={() => onStart(selectedNumber)}/>
                                 </Card>)}
