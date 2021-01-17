@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet, Button, Image } from 'react-native'
 
 import DefaultStyles from '../constants/default-styles'
+import Colors from '../constants/colors'
 
 const GameOverScreen = ({ rounds, selectedNumber, newGame }) => {
     return(
@@ -10,13 +11,23 @@ const GameOverScreen = ({ rounds, selectedNumber, newGame }) => {
             {/* For images you can use local  or network images*/}
             <View style={styles.imageContainer}>
                 <Image 
-                    source={require('../assets/images/success.png')} 
+                    fadeDuration={1000}
+                    source={require('../assets/images/success.png')}
+                    // img from web source={{uri: 'https://cdn.pixabay.com/photo/2020/12/21/19/05/window-5850628_960_720.png'}} 
                     style={styles.image}
                     resizeMode='cover'
                 />
             </View>
-            <Text style={DefaultStyles.bodyText}>Número de Rondas: {rounds}</Text>
-            <Text style={DefaultStyles.bodyText}>El número elegido fue: {selectedNumber}</Text>
+            <View style={styles.resultContainer}>
+                <Text 
+                    style={DefaultStyles.bodyText}
+                >
+                    Tu teléfono necesitó 
+                    <Text style={styles.highlight}> {rounds} </Text> 
+                    intentos para adivinar el número 
+                    <Text style={styles.highlight}> {selectedNumber} </Text>
+                </Text>
+            </View>
             <Button title="Volver a Jugar" onPress={newGame}/>
         </View>
     )
@@ -40,6 +51,14 @@ const styles = StyleSheet.create({
     image:{
         width: '100%',
         height: '100%',
+    },
+    resultContainer:{
+        marginHorizontal: 30 ,
+        marginVertical: 15
+    },
+    highlight:{
+        color: Colors.primary,
+        fontFamily: 'open-sans-bold',
     }
 })
 
