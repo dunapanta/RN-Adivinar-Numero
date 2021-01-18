@@ -56,8 +56,19 @@ const StartGameScreen = ({ onStart }) => {
                         value={enteredValue}
                     />
                     <View style={styles.buttonContainer}>
-                        <View style={styles.button}><Button color="#C62828" title="Resetear" onPress={resetInputHandler}/></View>
-                        <View style={styles.button}><Button color="#09af00" title="Confirmar" onPress={confirmInputHandler}/></View>
+                        <View style={styles.button}>
+                            <MainButton 
+                                style={{backgroundColor: "#C62828", paddingVertical: 6, paddingHorizontal: 6, borderRadius: 20}}
+                                butonText="Resetear" 
+                                onPress={resetInputHandler}/>
+                        </View>
+                        <View style={styles.button}>
+                            <MainButton 
+                                style={{backgroundColor: "#09af00", paddingVertical: 6, paddingHorizontal: 6, borderRadius: 20}}
+                                color="#09af00" 
+                                butonText="Confirmar" 
+                                onPress={confirmInputHandler}/>
+                        </View>
                     </View>
                 </Card>
                 {confirmed && (<Card style={styles.sumaryContainer}>

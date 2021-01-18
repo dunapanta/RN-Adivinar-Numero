@@ -23,7 +23,8 @@ const styles = StyleSheet.create({
     text:{
         color: 'white',
         fontFamily: 'open-sans',
-        fontSize: 18
+        fontSize: 18,
+        textAlign: 'center'
     }
 })
 
