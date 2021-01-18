@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, Button, TouchableWithoutFeedback, Keyboard, Ale
 import Card from '../components/Card'
 import Input from '../components/Input'
 import NumberContainer from '../components/NumberContainer'
+import MainButton from '../components/MainButton'
 import DefaultStyles from '../constants/default-styles'
 import Colors from '../constants/colors'
 
@@ -62,7 +63,7 @@ const StartGameScreen = ({ onStart }) => {
                 {confirmed && (<Card style={styles.sumaryContainer}>
                                     <Text style={DefaultStyles.bodyText}>Número Elegido:</Text>
                                     <NumberContainer number={selectedNumber}/>
-                                    <Button title="INICIAR JUEGO" onPress={() => onStart(selectedNumber)}/>
+                                    <MainButton butonText="INICIAR JUEGO" onPress={() => onStart(selectedNumber)}/>
                                 </Card>)}
             </View>
         </TouchableWithoutFeedback>

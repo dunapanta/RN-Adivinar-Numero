@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, Button, Alert } from 'react-native'
 
 import NumberContainer from '../components/NumberContainer'
 import Card from '../components/Card'
+import MainButton from '../components/MainButton'
+import Colors from '../constants/colors'
 import DefaultStyles from '../constants/default-styles'
 
 // funcion da un numero entre min y max
@@ -58,8 +60,14 @@ const GameScreen = ({ userChoice, onGameOver }) => {
             <Text style={DefaultStyles.title}>Número del Oponente</Text>
             <NumberContainer number={currentGuess}/>
             <Card style={styles.buttonContainer}>
-                <Button title="MENOR" onPress={ () => nextGuessHandler('lower') }/>
-                <Button title="MAYOR" onPress={ () => nextGuessHandler('greater')}/>
+                <MainButton 
+                    style={{backgroundColor: Colors.accent, paddingVertical: 8, paddingHorizontal: 15, borderRadius: 20}} 
+                    butonText="MENOR" 
+                    onPress={ () => nextGuessHandler('lower') }/>
+                <MainButton 
+                    style={{backgroundColor: Colors.accent, paddingVertical: 8, paddingHorizontal: 15, borderRadius: 20}}
+                    butonText="MAYOR" 
+                    onPress={ () => nextGuessHandler('greater')}/>
             </Card>
         </View>
     )
