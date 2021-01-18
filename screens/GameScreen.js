@@ -73,13 +73,16 @@ const GameScreen = ({ userChoice, onGameOver }) => {
                     butonText={<Ionicons name="md-add" size={30} color="white"/>}  
                     onPress={ () => nextGuessHandler('greater')}/>
             </Card>
-            <ScrollView>
-                {pastGuesses.map(guess => (
-                    <View key={guess}>
-                        <Text>{guess}</Text>
-                    </View>
-                ))}
-            </ScrollView>
+            <View style={styles.list}>
+                <ScrollView>
+                    {pastGuesses.map( (guess, index) => (
+                        <View key={guess} style={styles.listItem}>
+                            <Text style={DefaultStyles.bodyText}>intento #{pastGuesses.length - index}</Text>
+                            <Text>{guess}</Text>
+                        </View>
+                    ))}
+                </ScrollView>
+            </View>
         </View>
     )
 }
@@ -96,6 +99,19 @@ const styles = StyleSheet.create({
         marginTop: 20,
         width: 300,
         maxWidth: '80%'
+    },
+    list:{
+        flex: 1, // necesary to scroll on Android
+        width: '80%'
+    },
+    listItem:{
+        flexDirection: 'row',
+        borderColor: '#CCC',
+        borderWidth: 1,
+        padding: 15,
+        marginVertical: 10,
+        backgroundColor: 'white',
+        justifyContent: 'space-between'
     }
 })
 
