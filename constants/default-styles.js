@@ -1,9 +1,9 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
 
 export default StyleSheet.create({
     bodyText:{
         fontFamily: 'open-sans',
-        fontSize: 15,
+        fontSize: Dimensions.get('window').height < 400 ? 12 : 16,
         textAlign: 'center'
     },
     title: {
