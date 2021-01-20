@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, Button, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native'
+import { View, Text, StyleSheet, TouchableWithoutFeedback, Keyboard, Alert, Dimensions } from 'react-native'
 
 import Card from '../components/Card'
 import Input from '../components/Input'
@@ -106,7 +106,9 @@ const styles = StyleSheet.create({
         marginTop: 15
     },
     button:{
-        width: 98,
+        //width: 98,
+        //Dimensions.get('window') get the dimensions of the entire device 
+        width: Dimensions.get('window').width / 4
     },
     input:{
         width: 60,
