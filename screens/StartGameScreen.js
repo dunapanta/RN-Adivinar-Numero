@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, TouchableWithoutFeedback, Keyboard, Alert, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, TouchableWithoutFeedback, Keyboard, Alert, Dimensions, ScrollView, KeyboardAvoidingView } from 'react-native'
 
 import Card from '../components/Card'
 import Input from '../components/Input'
@@ -38,46 +38,51 @@ const StartGameScreen = ({ onStart }) => {
     }
 
     return(
-        /* Keyboard.dismiss() para quitar el teclado cuando se presiona en la pantalla */
-        <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss() }}>
-            <View style={styles.screen}>
-                <Text style={styles.title}>Comezar a Jugar!</Text>
-                {/* Card Section */}
-                <Card style={styles.inputCointainer}>
-                    <Text style={DefaultStyles.bodyText}>Selecciona un Número</Text>
-                    <Input 
-                        style={styles.input} 
-                        keyboardType='number-pad' 
-                        maxLength={2} 
-                        blurOnSubmit 
-                        autoCapitalize='none' 
-                        autoCorrect={false}
-                        onChangeText={numberInputHandler}
-                        value={enteredValue}
-                    />
-                    <View style={styles.buttonContainer}>
-                        <View style={styles.button}>
-                            <MainButton 
-                                style={{backgroundColor: "#C62828", paddingVertical: 6, paddingHorizontal: 6, borderRadius: 20}}
-                                butonText="Resetear" 
-                                onPress={resetInputHandler}/>
+        <ScrollView>
+            {/* Se usa KeyboardAvoidingView para no sobreponer el teclado en el input donde se tipea mejor padding para Android y position para IOS */}
+            <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={30}>
+            {/* Keyboard.dismiss() para quitar el teclado cuando se presiona en la pantalla */}
+            <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss() }}>
+                <View style={styles.screen}>
+                    <Text style={styles.title}>Comezar a Jugar!</Text>
+                    {/* Card Section */}
+                    <Card style={styles.inputCointainer}>
+                        <Text style={DefaultStyles.bodyText}>Selecciona un Número</Text>
+                        <Input 
+                            style={styles.input} 
+                            keyboardType='number-pad' 
+                            maxLength={2} 
+                            blurOnSubmit 
+                            autoCapitalize='none' 
+                            autoCorrect={false}
+                            onChangeText={numberInputHandler}
+                            value={enteredValue}
+                        />
+                        <View style={styles.buttonContainer}>
+                            <View style={styles.button}>
+                                <MainButton 
+                                    style={{backgroundColor: "#C62828", paddingVertical: 6, paddingHorizontal: 6, borderRadius: 20}}
+                                    butonText="Resetear" 
+                                    onPress={resetInputHandler}/>
+                            </View>
+                            <View style={styles.button}>
+                                <MainButton 
+                                    style={{backgroundColor: "#09af00", paddingVertical: 6, paddingHorizontal: 6, borderRadius: 20}}
+                                    color="#09af00" 
+                                    butonText="Confirmar" 
+                                    onPress={confirmInputHandler}/>
+                            </View>
                         </View>
-                        <View style={styles.button}>
-                            <MainButton 
-                                style={{backgroundColor: "#09af00", paddingVertical: 6, paddingHorizontal: 6, borderRadius: 20}}
-                                color="#09af00" 
-                                butonText="Confirmar" 
-                                onPress={confirmInputHandler}/>
-                        </View>
-                    </View>
-                </Card>
-                {confirmed && (<Card style={styles.sumaryContainer}>
-                                    <Text style={DefaultStyles.bodyText}>Número Elegido:</Text>
-                                    <NumberContainer number={selectedNumber}/>
-                                    <MainButton butonText="INICIAR JUEGO" onPress={() => onStart(selectedNumber)}/>
-                                </Card>)}
-            </View>
-        </TouchableWithoutFeedback>
+                    </Card>
+                    {confirmed && (<Card style={styles.sumaryContainer}>
+                                        <Text style={DefaultStyles.bodyText}>Número Elegido:</Text>
+                                        <NumberContainer number={selectedNumber}/>
+                                        <MainButton butonText="INICIAR JUEGO" onPress={() => onStart(selectedNumber)}/>
+                                    </Card>)}
+                </View>
+            </TouchableWithoutFeedback>
+            </KeyboardAvoidingView>
+        </ScrollView>
     )
 }
 
