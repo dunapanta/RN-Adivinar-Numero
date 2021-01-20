@@ -88,8 +88,9 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     inputCointainer: {
-        width: 300,
-        maxWidth: '80%',
+        width: '80%',
+        maxWidth: '95%',
+        minWidth: 300,
         alignItems: 'center'
     },
     title:{
