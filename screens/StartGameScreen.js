@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, TouchableWithoutFeedback, Keyboard, Alert, Dimensions, ScrollView, KeyboardAvoidingView } from 'react-native'
 
 import Card from '../components/Card'
@@ -14,6 +14,9 @@ const StartGameScreen = ({ onStart }) => {
     const [confirmed, setConfirmed] = useState(false)
     const [selectedNumber, setSelectedNumber] = useState()
 
+    //When the user change the orientation
+    const [buttonWidth, setButtonWidth] = useState(Dimensions.get('window').width / 4)
+
     const numberInputHandler = inputText => {
         // replace with regular expretion to not enter . - or anything that is not a number
         setEnteredValue(inputText.replace(/[^0-9]/g, ''))
@@ -23,6 +26,19 @@ const StartGameScreen = ({ onStart }) => {
         setEnteredValue('')
         setConfirmed(false)
     }
+
+    useEffect( () => {
+        //function that run on every re-render
+        const updateLayout = () => {
+            setButtonWidth(Dimensions.get('window').width / 4)
+        }
+        Dimensions.addEventListener('change', updateLayout)
+        //if return somethin in useEffect is the clean up function that runs BEFORE useEffect runs
+        return () => {
+            //clean up the listener
+            Dimensions.removeEventListener('change', updateLayout)
+        }
+    })
 
     const confirmInputHandler = () => {
         const chosenNumber = parseInt(enteredValue)
@@ -59,13 +75,13 @@ const StartGameScreen = ({ onStart }) => {
                             value={enteredValue}
                         />
                         <View style={styles.buttonContainer}>
-                            <View style={styles.button}>
+                            <View style={{width: buttonWidth}}>
                                 <MainButton 
                                     style={{backgroundColor: "#C62828", paddingVertical: 6, paddingHorizontal: 6, borderRadius: 20}}
                                     butonText="Resetear" 
                                     onPress={resetInputHandler}/>
                             </View>
-                            <View style={styles.button}>
+                            <View style={{width: buttonWidth}}>
                                 <MainButton 
                                     style={{backgroundColor: "#09af00", paddingVertical: 6, paddingHorizontal: 6, borderRadius: 20}}
                                     color="#09af00" 
@@ -110,11 +126,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         marginTop: 15
     },
-    button:{
+    /* button:{
         //width: 98,
         //Dimensions.get('window') get the dimensions of the entire device 
         width: Dimensions.get('window').width / 4
-    },
+    }, */
     input:{
         width: 60,
         textAlign: 'center',
