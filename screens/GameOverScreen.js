@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, Image, Dimensions, ScrollView } from 'react-native'
 
 import MainButton from '../components/MainButton'
 import DefaultStyles from '../constants/default-styles'
@@ -7,6 +7,7 @@ import Colors from '../constants/colors'
 
 const GameOverScreen = ({ rounds, selectedNumber, newGame }) => {
     return(
+        <ScrollView>
         <View style={styles.screen}>
             <Text style={DefaultStyles.title}>Fin del Juego</Text>
             {/* For images you can use local  or network images*/}
@@ -31,6 +32,7 @@ const GameOverScreen = ({ rounds, selectedNumber, newGame }) => {
             </View>
             <MainButton butonText="Volver a Jugar" onPress={newGame}/>
         </View>
+        </ScrollView>
         
     )
 }
@@ -39,7 +41,8 @@ const styles = StyleSheet.create({
     screen:{
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingVertical: 20
     },
     imageContainer:{
         width: Dimensions.get('window').width * 0.7, // setenta porciento del espacio disponible
