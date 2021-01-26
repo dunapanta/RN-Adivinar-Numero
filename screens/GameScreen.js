@@ -27,9 +27,26 @@ const GameScreen = ({ userChoice, onGameOver }) => {
 
     const [currentGuess, setCurrentGuess] = useState(initialGuess)
     const [pastGuesses, setPastGuesses] = useState([initialGuess])
+    const [availableDeviceWidth, setAvailableDeviceWidth] = useState(Dimensions.get('window').width)
+    const [availableDeviceHeigth, setAvailableDeviceHeigth] = useState(Dimensions.get('window').height)
+
 
     const currentLow = useRef(1)
     const currentHigh = useRef(100)
+
+    //Orientaion 
+    useEffect( () => {
+        const updateLayout = () => {
+            setAvailableDeviceWidth(Dimensions.get('window').width)
+            setAvailableDeviceHeigth(Dimensions.get('window').height)
+        }
+        Dimensions.addEventListener('change', updateLayout)
+
+        return () => {
+            Dimensions.removeEventListener('change', updateLayout)
+        }
+
+    })
 
     // Game Over
     useEffect( () => {
@@ -58,6 +75,36 @@ const GameScreen = ({ userChoice, onGameOver }) => {
         setPastGuesses( curPastGuesses => [nextNumber, ...curPastGuesses])
         
     }
+
+    if (availableDeviceHeigth < 500){
+        return(
+            <View style={styles.screen}>
+                <Text style={DefaultStyles.title}>Número del Oponente</Text>
+                <View style={styles.controls}>
+                    <MainButton 
+                        style={{backgroundColor: Colors.accent, paddingVertical: 8, paddingHorizontal: 15, borderRadius: 20}} 
+                        butonText={<Ionicons name="md-remove" size={30} color="white"/>} 
+                        onPress={ () => nextGuessHandler('lower') }/>
+                <NumberContainer number={currentGuess}/>
+                    <MainButton 
+                        style={{backgroundColor: Colors.accent, paddingVertical: 8, paddingHorizontal: 15, borderRadius: 20}}
+                        butonText={<Ionicons name="md-add" size={30} color="white"/>}  
+                        onPress={ () => nextGuessHandler('greater')}/>
+                </View>
+                <View style={styles.list}>
+                    <ScrollView>
+                        {pastGuesses.map( (guess, index) => (
+                            <View key={guess} style={styles.listItem}>
+                                <Text style={DefaultStyles.bodyText}>intento #{pastGuesses.length - index}</Text>
+                                <Text>{guess}</Text>
+                            </View>
+                        ))}
+                    </ScrollView>
+                </View>
+            </View>
+        )
+    }
+
 
     return(
         <View style={styles.screen}>
@@ -102,7 +149,7 @@ const styles = StyleSheet.create({
     },
     list:{
         flex: 1, // necesary to scroll on Android
-        width: Dimensions.get('window').width > 350 ? '80%': '60%'
+        width: Dimensions.get('window').width < 350 ? availableDeviceWidth: '60%'
     },
     listItem:{
         flexDirection: 'row',
@@ -112,6 +159,12 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         backgroundColor: 'white',
         justifyContent: 'space-between'
+    },
+    controls:{
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        width: '80%'
     }
 })
 
